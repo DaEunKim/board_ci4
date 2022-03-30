@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers;
+use CodeIgniter\I18n\Time;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\ApiModel;
@@ -48,6 +49,8 @@ class Member extends ResourceController{
             'user_id' => $this->request->getVar('user_id'),
             'user_pw'  => $this->request->getVar('user_pw'),
             'name'  => $this->request->getVar('name'),
+            'status' => 'O',
+            'created_At' => Time::now(),
         ];
         $ret = $this->m_member->insert($join_data);
 
@@ -76,6 +79,7 @@ class Member extends ResourceController{
         $index = $this->request->getVar('index');
         $data = [
             'name'  => $this->request->getVar('name'),
+            'updated_at' => Time::now(),
         ];
         $this->m_member->update($index, $data);
         $result = [
@@ -83,6 +87,25 @@ class Member extends ResourceController{
             'error'    => null,
             'messages' => [
                 'success' => '회원 정보 수정 완료되었습니다. '
+            ]
+        ];
+
+        return $this->respond($result);
+    }
+
+
+    /* 회원 탈퇴 - put api */
+    public function updateStatus($index = null){
+        $index = $this->request->getVar('index');
+        $data = [
+            'status'  => 'X'
+        ];
+        $this->m_member->update($index, $data);
+        $result = [
+            'status' 	=> '0000',
+            'error'    => null,
+            'messages' => [
+                'success' => '회원 탈퇴 완료되었습니다. '
             ]
         ];
 
