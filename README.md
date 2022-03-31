@@ -10,7 +10,7 @@ index, user_id, user_pw, name, status, created_at, updated_at
 CREATE TABLE `e_member` (
   `index` int(11) NOT NULL COMMENT 'Primary Key',
   `user_id` varchar(100) NOT NULL COMMENT 'user_id',
-`user_pw` varchar(100) NOT NULL COMMENT 'user_pw’
+`user_pw` varchar(255) NOT NULL COMMENT 'user_pw’
 `name` varchar(100) NOT NULL COMMENT 'name',
 `status` varchar(100) NOT NULL COMMENT 'status',
 `created_at` datetime NOT NULL COMMENT 'created_at',
