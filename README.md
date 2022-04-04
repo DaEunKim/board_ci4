@@ -34,3 +34,18 @@ CREATE TABLE `e_member` (
 4. password 암호화  
 5. 회원 테이블에 insert 하는 모델 호출  
 5. insert 성공 여부에 따라 response 리턴  
+
+
+로그인 (app/Controllers/Member/login)  
+1. user_id, user_pw 정보를 전달받음.  
+2. 필요한 정보 모두 전달 받았는지 확인  
+3. 아이디와 패스워드 일치하는지 확인하는 모델 호출  
+4. jwt 발급 (access token 발급)  
+5. 회원 조회 및 jwt 발급 성공 여부에 따라 response 리턴  
+
+
+토큰으로 회원 확인  (app/Controllers/Member/index)  
+1. 로그인에서 발급한 jwt 값 정보를 전달받음.   
+2. jwt decode 를 통해 키 복호화  
+3. 키 복호화로 얻은 회원 id를 조회하는 모델 호출  
+4. 가입 여부 확인 후 response 리턴  
