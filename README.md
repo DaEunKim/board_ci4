@@ -1,5 +1,5 @@
-프로젝트 실행 명령어 &nbsp;
-php spark serve 
+<프로젝트 실행 명령어>&nbsp;
+php spark serve &nbsp;
 
 &nbsp;
 <주요 기능>&nbsp;
