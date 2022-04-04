@@ -7,21 +7,23 @@ php spark serve
 2. jwt 토큰 발급을 통한 oauth 검증&nbsp;
 3. 비밀번호 암호화&nbsp;
 
-DB명 : member / Table명 : e_member&nbsp;
+<DB 구조> &nbsp;
+DB명 : member &nbsp;
+Table명 : e_member &nbsp;
 
-table 구조: 
-index, user_id, user_pw, name, status, created_at, updated_at&nbsp;
+table 구조 &nbsp;
+index, user_id, user_pw, name, status, created_at, updated_at &nbsp;
 &nbsp;
 
-CREATE TABLE `e_member` (
-  `index` int(11) NOT NULL COMMENT 'Primary Key',
-  `user_id` varchar(100) NOT NULL COMMENT 'user_id',
-`user_pw` varchar(255) NOT NULL COMMENT 'user_pw’
-`name` varchar(100) NOT NULL COMMENT 'name',
-`status` varchar(100) NOT NULL COMMENT 'status',
-`created_at` datetime NOT NULL COMMENT 'created_at',
-`updated_at` datetime NOT NULL COMMENT 'updated_at',  
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Customers collection';
+CREATE TABLE `e_member` ( &nbsp;
+  `index` int(11) NOT NULL COMMENT 'Primary Key', &nbsp;
+  `user_id` varchar(100) NOT NULL COMMENT 'user_id', &nbsp;
+`user_pw` varchar(255) NOT NULL COMMENT 'user_pw’, &nbsp;
+`name` varchar(100) NOT NULL COMMENT 'name', &nbsp;
+`status` varchar(100) NOT NULL COMMENT 'status', &nbsp;
+`created_at` datetime NOT NULL COMMENT 'created_at', &nbsp;
+`updated_at` datetime NOT NULL COMMENT 'updated_at',  &nbsp;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Customers collection';&nbsp;
 
 &nbsp;
 회원가입 (app/Controllers/Member/join) &nbsp;
