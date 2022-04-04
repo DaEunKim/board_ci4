@@ -5,13 +5,12 @@ php spark serve
 <주요 기능>  
 1. 회원가입, 로그인, 회원 조회, 회원 정보 수정, 회원 존재 여부 확인, 회원 탈퇴 기능 개발  
 2. jwt 토큰 발급을 통한 oauth 검증  
-3. 비밀번호 암호화   &nbsp; 
-
+3. 비밀번호 암호화  
 
 
 
 <DB>  
- 1. DB명 : member  
+ 1. DB명 : member  &nbsp; 
  2. Table명 : e_member  
  index, user_id, user_pw, name, status, created_at, updated_at  
   
