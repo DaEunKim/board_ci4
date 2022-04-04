@@ -25,7 +25,7 @@ CREATE TABLE `e_member` ( &nbsp;
   `updated_at` datetime NOT NULL COMMENT 'updated_at',  &nbsp;
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Customers collection';&nbsp;
 
-<각 로직의 부연설명> &nbsp;
+<각 로직의 부연설명>
 &nbsp;
 회원가입 (app/Controllers/Member/join) &nbsp;
 1. user_id, user_pw, name 정보를 전달받음 &nbsp;
