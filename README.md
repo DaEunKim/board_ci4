@@ -40,8 +40,9 @@ CREATE TABLE `e_member` (
 1. user_id, user_pw 정보를 전달받음.  
 2. 필요한 정보 모두 전달 받았는지 확인  
 3. 아이디와 패스워드 일치하는지 확인하는 모델 호출  
-4. jwt 발급 (access token 발급)  
-5. 회원 조회 및 jwt 발급 성공 여부에 따라 response 리턴  
+4. 탈퇴한 회원이면 로그인 불가 response 리턴  
+5. jwt 발급 (access token 발급)  
+6. 회원 조회 및 jwt 발급 성공 여부에 따라 response 리턴  
 
 
 토큰으로 회원 확인  (app/Controllers/Member/index)  
@@ -49,3 +50,17 @@ CREATE TABLE `e_member` (
 2. jwt decode 를 통해 키 복호화  
 3. 키 복호화로 얻은 회원 id를 조회하는 모델 호출  
 4. 가입 여부 확인 후 response 리턴  
+
+
+회원 정보 수정 (app/Controllers/Member/updateInfo)  
+1. 수정할 회원 정보 전달 받음.   
+2. 수정할 내용 전달 받음.  
+3. 회원 테이블에 수정할 내용, updated_at (수정 시간)을 업데이트 하는 모델 호출  
+4. 수정 완료 response 리턴  
+
+
+회원 탈퇴 (app/Controllers/Member/updateStatus)  
+1. 탈퇴할 회원 정보 전달 받음.   
+2. 회원 관리 정책을 고려하여 데이터베이스에서 바로 삭제하지 않고 status 값을 변경  
+3. status 값을 업데이트 하는 모델 호출  
+4. 수정 완료 response 리턴   
