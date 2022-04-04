@@ -24,7 +24,7 @@ CREATE TABLE `e_member` ( &nbsp;
   `created_at` datetime NOT NULL COMMENT 'created_at', &nbsp;
   `updated_at` datetime NOT NULL COMMENT 'updated_at',  &nbsp;
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Customers collection';&nbsp;
-&nbsp;
+
 <각 로직의 부연설명> &nbsp;
 &nbsp;
 회원가입 (app/Controllers/Member/join) &nbsp;
