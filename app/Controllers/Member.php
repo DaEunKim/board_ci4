@@ -23,7 +23,10 @@ class Member extends ResourceController{
         $token = explode(' ', $header)[1];
 
         try {
+            /* token값 복호화 */
             $decoded = JWT::decode($token, new Key($key, 'HS256'));
+
+            /* 복호화하여 나온 아이디 값으로 회원 조회 */
             $data = $this->m_member->where('user_id', $decoded->user_id)->first();
             if($data){
                 $result = [
@@ -56,6 +59,7 @@ class Member extends ResourceController{
             return $this->respond("아이디를 올바르게 입력해주세요.");
         }
 
+        /* 회원 조회 모델 호출 */
         $is_exist_user = $this->m_member->where('user_id', $user_id)->first();
 
         if(!$is_exist_user){
@@ -88,11 +92,13 @@ class Member extends ResourceController{
         if(is_null($user_id) || is_null($user_pw) || is_null($name)){
             return $this->respond("가입 정보를 올바르게 입력해주세요.");
         }
-        // 가입된 아이디인지 확인
+        // 가입된 아이디인지 확인 모델 호출
         $chk_user_id = $this->m_member->where('user_id', $user_id)->first();
         if($chk_user_id){
             return $this->respond("이미 가입된 아이디입니다. 다른 아이디로 가입해주세요. ");
         }
+
+        /* 비밀번호 암호화 */
         $user_pw = password_hash($user_pw, PASSWORD_BCRYPT);
 
         $join_data = [
@@ -102,6 +108,7 @@ class Member extends ResourceController{
             'status' => 'O',
             'created_at' => Time::now(),
         ];
+        /* 회원 정보 insert */
         $join_result = $this->m_member->insert($join_data);
 
         if($join_result){
@@ -132,7 +139,9 @@ class Member extends ResourceController{
             return $this->respond("로그인 정보를 올바르게 입력해주세요.");
         }
 
+        /* 회원 아이디 조회 */
         $chk_user = $this->m_member->where('user_id', $user_id)->first();
+        /* 비밀번호 비교 */
         $pw_verify = password_verify($user_pw, $chk_user["user_pw"]);
         if(is_null($chk_user) || !$pw_verify){
             return $this->respond("로그인에 실패하였습니다.");
@@ -141,10 +150,10 @@ class Member extends ResourceController{
             return $this->respond("탈퇴한 회원이므로 로그인 할 수 없습니다. ");
         }
 
+        /* jwt 발급 */
         $key = Services::getSecretKey();
         $iat = time();
         $exp = $iat + 3600;
-
         $payload = array(
             "iat" => $iat,
             "exp" => $exp,
