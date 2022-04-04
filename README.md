@@ -22,3 +22,12 @@ CREATE TABLE `e_member` (
 `created_at` datetime NOT NULL COMMENT 'created_at',
 `updated_at` datetime NOT NULL COMMENT 'updated_at',  
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Customers collection';
+
+&nbsp;
+회원가입 (app/Controllers/Member/join) &nbsp;
+1. user_id, user_pw, name 정보를 전달받음 &nbsp;
+2. 필요한 정보 전달 받았는지 확인 &nbsp;
+3. 가입된 아이디인지 확인하는 모델 호출 &nbsp;
+4. password 암호화 &nbsp;
+5. 회원 테이블에 insert 하는 모델 호출 &nbsp;
+5. insert 성공 여부에 따라 response 리턴 &nbsp;
