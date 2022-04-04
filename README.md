@@ -11,6 +11,8 @@ php spark serve
 
 <DB>  
  1. DB명 : member  &nbsp; 
+ 
+ 
  2. Table명 : e_member  
  index, user_id, user_pw, name, status, created_at, updated_at  
   
