@@ -1,6 +1,6 @@
 프로젝트 실행 명령어 &nbsp;
-php spark serve&nbsp;
-&nbsp;&nbsp;
+php spark serve &nbsp;
+&nbsp;
 <주요 기능>&nbsp;
 1. 회원가입, 로그인, 회원 조회, 회원 정보 수정, 회원 존재 여부 확인, 회원 탈퇴 기능 개발&nbsp;
 2. jwt 토큰 발급을 통한 oauth 검증&nbsp;
