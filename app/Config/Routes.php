@@ -33,6 +33,9 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 //$routes->get('/', 'Home::index');
 $routes->resource('Member');
+$routes->post("member/join", "Member::join");
+$routes->post("member/login", "Member::login");
+$routes->get("member", "Member::index", ['filter' => 'authFilter']);
 
 /*
  * --------------------------------------------------------------------

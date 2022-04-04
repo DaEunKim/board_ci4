@@ -6,6 +6,7 @@ use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\M_member;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 use Config\Services;
 
 class Member extends ResourceController{
@@ -14,7 +15,7 @@ class Member extends ResourceController{
         $this->m_member = new M_member();
     }
 
-    /* 모든 회원 조회 - get api */
+    /* 토큰값으로 회원 확인 - get api */
     public function index(){
         $key = Services::getSecretKey();
         $header = $this->request->getServer('HTTP_AUTHORIZATION');
@@ -22,15 +23,27 @@ class Member extends ResourceController{
         $token = explode(' ', $header)[1];
 
         try {
-            $decoded = JWT::decode($token, $key, array('HS256'));
-            $data = $this->m_member->orderBy('index', 'DESC')->findAll();
-            $response = [
-                'index' => $decoded->index,
-                'user_id' => $decoded->user_id,
-                'data' => $data
-            ];
-
-            return $this->respond($response);
+            $decoded = JWT::decode($token, new Key($key, 'HS256'));
+            $data = $this->m_member->where('user_id', $decoded->user_id)->first();
+            if($data){
+                $result = [
+                    'status'   => '0000',
+                    'error'    => null,
+                    'messages' => [
+                        'success' => '가입된 회원입니다. ',
+                        'data' => $data
+                    ]
+                ];
+            }else{
+                $result = [
+                    'status'   => '1002',
+                    'error'    => null,
+                    'messages' => [
+                        'fail' => '회원이 존재하지 않습니다. '
+                    ]
+                ];
+            }
+            return $this->respond($result);
         } catch (\Throwable $th) {
             return $this->fail('Invalid Token');
         }
@@ -50,7 +63,7 @@ class Member extends ResourceController{
                 'status'   => '0000',
                 'error'    => null,
                 'messages' => [
-                    'success' => '사용가능합니다.'
+                    'success' => '사용 가능 합니다.'
                 ]
             ];
         }else{
@@ -126,15 +139,17 @@ class Member extends ResourceController{
             return $this->respond("로그인에 실패하였습니다.");
         }
 
-        $issuedAtTime = time();
-        $tokenTimeToLive = getenv('JWT_TIME_TO_LIVE');
-        $tokenExpiration = $issuedAtTime + $tokenTimeToLive;
-        $payload = [
+        $key = Services::getSecretKey();
+        $iat = time();
+        $exp = $iat + 3600;
+
+        $payload = array(
+            "iat" => $iat,
+            "exp" => $exp,
             'user_id' => $chk_user['user_id'],
-            'iat' => $issuedAtTime,
-            'exp' => $tokenExpiration,
-        ];
-        $token = JWT::encode($payload, Services::getSecretKey(),'HS256');
+        );
+
+        $token = JWT::encode($payload, $key, 'HS256');
 
         $result = [
             'status'   => '0000',

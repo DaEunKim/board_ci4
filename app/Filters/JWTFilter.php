@@ -6,7 +6,8 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
-use Exception;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class JWTFilter implements FilterInterface{
     use ResponseTrait;
@@ -19,7 +20,7 @@ class JWTFilter implements FilterInterface{
         $token = explode(' ', $header)[1];
 
         try {
-            JWT::decode($token, $key, ['HS256']);
+            JWT::decode($token, new Key($key, 'HS256'));
         } catch (\Throwable $th) {
             return Services::response()
                 ->setJSON(['msg' => 'Invalid Token'])
