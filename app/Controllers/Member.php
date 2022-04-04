@@ -128,7 +128,6 @@ class Member extends ResourceController{
     public function login(){
         $user_id = $this->request->getVar('user_id');
         $user_pw = $this->request->getVar('user_pw');
-
         if(is_null($user_id) || is_null($user_pw)){
             return $this->respond("로그인 정보를 올바르게 입력해주세요.");
         }
@@ -137,6 +136,9 @@ class Member extends ResourceController{
         $pw_verify = password_verify($user_pw, $chk_user["user_pw"]);
         if(is_null($chk_user) || !$pw_verify){
             return $this->respond("로그인에 실패하였습니다.");
+        }
+        if($chk_user['status'] == 'X'){
+            return $this->respond("탈퇴한 회원이므로 로그인 할 수 없습니다. ");
         }
 
         $key = Services::getSecretKey();
